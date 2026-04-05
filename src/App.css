@@ -1,0 +1,56 @@
+import { useState } from "react";
+import Navbar from "./components/Navbar";
+import Home from "./components/Home";
+import About from "./components/About";
+import Products from "./components/Products";
+import Contact from "./components/Contact";
+
+// ─────────────────────────────────────────
+// App.js — The ROOT component
+// This is the entry point of your entire app
+//
+// CONCEPT: useState as a "page switcher"
+// Instead of React Router, we use a simple
+// state variable called `page` to decide
+// which component to show on screen.
+//
+// page = "home"     → show <Home />
+// page = "about"    → show <About />
+// page = "products" → show <Products />
+// page = "contact"  → show <Contact />
+// ─────────────────────────────────────────
+
+function App() {
+
+  // useState hook — tracks which page is currently visible
+  // Default value is "home" so Home loads first
+  const [page, setPage] = useState("home");
+
+  // This function decides which component to render
+  // based on the current value of `page`
+  const renderPage = () => {
+    if (page === "home")     return <Home />;
+    if (page === "about")    return <About />;
+    if (page === "products") return <Products />;
+    if (page === "contact")  return <Contact />;
+  };
+
+  return (
+    <div>
+      {/*
+        We pass two things to Navbar as PROPS:
+        1. page     → so Navbar knows which tab is active
+        2. setPage  → so Navbar can change the page when a tab is clicked
+      */}
+      <Navbar page={page} setPage={setPage} />
+
+      {/*
+        renderPage() runs here and returns the correct component
+        This is the area that changes when you click a nav tab
+      */}
+      {renderPage()}
+    </div>
+  );
+}
+
+export default App;
